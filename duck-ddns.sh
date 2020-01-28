@@ -15,10 +15,7 @@ while true; do
 	URL="https://www.duckdns.org/update?domains=${DOMAIN}&token=${TOKEN}"
 
 	if [ -z "$MANUAL_IP"]; then
-		echo "MANUAL IP: $MANUAL_IP"
-		URL="${URL}&ip=${MANUAL_IP}"
-	else
-		PUBLIC_IP=$(curl ifconfig.me')
+		PUBLIC_IP=$(curl ifconfig.me)
 		if [ -z "$PUBLIC_IP" ]; then
 			echo "Network error - Failed to find public IP address. Trying alternate."
 			PUBLIC_IP=$(curl http://checkip.amazonaws.com)
@@ -32,6 +29,10 @@ while true; do
 
 		echo "IP: $PUBLIC_IP="
 		URL="${URL}&ip=${PUBLIC_IP=}"
+		
+	else
+		echo "MANUAL IP: $MANUAL_IP"
+		URL="${URL}&ip=${MANUAL_IP}"
 	fi
 
 	echo "Calling URL: $URL"
