@@ -38,7 +38,7 @@ while true; do
 	fi
 	
 	if [ -z "$ALWAYS_SEND"] && [ "$URL" = "$CURRENT_URL" ]; then
-		echo "IP ALREADY SET AS : $CURRENT_IP"
+		echo "IP ALREADY SET AS : $CURRENT_URL"
 	else
 		echo "Calling URL: $URL"
 		RESPONSE=$(curl -s -k "$URL" & wait)
