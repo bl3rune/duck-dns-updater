@@ -11,6 +11,8 @@ if [ -z "$TOKEN" ]; then
 	exit 1
 fi
 
+CURRENT_URL=""
+
 while true; do
 	URL="https://www.duckdns.org/update?domains=${DOMAIN}&token=${TOKEN}"
 
@@ -34,10 +36,15 @@ while true; do
 		echo "MANUAL IP: $MANUAL_IP"
 		URL="${URL}&ip=${MANUAL_IP}"
 	fi
-
-	echo "Calling URL: $URL"
-	RESPONSE=$(curl -s -k "$URL" & wait)
-	echo "Duck DNS response: ${RESPONSE}"
+	
+	if [ -z "$ALWAYS_SEND"] && [ "$URL" = "$CURRENT_URL" ]; then
+		echo "IP ALREADY SET AS : $CURRENT_IP"
+	else
+		echo "Calling URL: $URL"
+		RESPONSE=$(curl -s -k "$URL" & wait)
+		echo "Duck DNS response: ${RESPONSE}"
+		CURRENT_URL = "${URL}"
+	fi
 
 	# Sleep and loop
 	sleep $INTERVAL & wait
