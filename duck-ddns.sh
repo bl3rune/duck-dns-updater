@@ -43,7 +43,7 @@ while true; do
 		echo "Calling URL: $URL"
 		RESPONSE=$(curl -s -k "$URL" & wait)
 		echo "Duck DNS response: ${RESPONSE}"
-		CURRENT_URL = "${URL}"
+		CURRENT_URL=$URL
 	fi
 
 	# Sleep and loop
